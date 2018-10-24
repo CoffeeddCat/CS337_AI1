@@ -33,12 +33,12 @@ class Loader:
         del(self.output_data[0])
         matrix_temp = np.zeros((32, 7))
         for item in self.output_data:
-            print(item)
             name = item[0]
             if name != name_temp:
                 self.output[name] = np.zeros((32, 7))
             for i in range(2, 9):
-                self.output[name][int(item[1])][i-2] = item[i]
+                if int(item[1])<=32:
+                    self.output[name][int(item[1])-1][i-2] = item[i]
             name_temp = name
         print(self.output)
 
@@ -49,7 +49,7 @@ class Loader:
     def get_data(self, index):
         return self.data[index]
 
-
-loader = Loader(128, 1)
-loader.initialize_output()
-#loader.read_data_file()
+# For test.
+# loader = Loader(128, 1)
+# loader.initialize_output()
+# loader.read_data_file()
