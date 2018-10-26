@@ -1,9 +1,11 @@
 class Config:
     def __init__ (self):
-        self.input_shape
+        self.input_shape = [128, 128, 128]
+        self.dnn_shape = []
         self.filters = []
         self.kernel_sizes = []
         self.strides = []
         self.padding = "valid"
         self.buffer_size = 20
-        self.learning_rate = 
+        self.cnn_output_size = 
+        self.learning_rate =
