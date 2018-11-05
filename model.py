@@ -1,35 +1,68 @@
 import tensorflow as tf
 import numpy as np
 
+
 class Network:
+
     def __init__(self, config):
         self.config = config
-        self.session = tf.Session()
-        self.image_input = tf.placeholder(tf.float32, shape=[None] + config.input_shape, name="image_input")
+        self.train_step = 0
+        self.sess = tf.Session()
+        self.initialize_network()
+
+    def initialize_network(self):
+        self.image_input = tf.placeholder(
+            tf.float32, shape=[None] + self.config.input_shape, name="image_input")
         out = self.image_input
         with tf.variable_scope("cnn_part"):
-            for filters, kernel_size, strides in zip(config.filters, config.kernel_size, config.strides):
+            for filters, kernel_size, strides in zip(self.config.filters, self.config.kernel_size, self.config.strides):
                 layer = tf.layers.conv3d(
                     inputs=out,
                     filters=filters,
                     kernel_size=kernel_size,
                     strides=strides,
                     activation=tf.nn.relu
-                    )
+                )
                 out = layer
 
         self.cnn_output = tf.layers.flatten(out)
         out = self.cnn_output
 
         with tf.variable_scope("dnn_part"):
-            for output_num in config.dnn_shape:
+            for output_num in self.config.dnn_shape:
                 layer = tf.layers.dense(
                     inputs=out,
                     units=output_num,
                     activation=tf.nn.relu
-                    )
+                )
                 out = layer
 
         self.dnn_output = out
 
-        
+        self.standard_mat = tf.placeholder(
+            tf.float32, shape=[None, 16, 7], name="standard_mat")
+        with tf.variable_scope("train_part"):
+            self.loss = tf.reduce_mean(
+                (tf.square(self.dnn_output - self.standard_mat)))
+            self.trainer = tf.train.AdamOptimizer(
+                self.config.learning_rate).minimize(self.loss)
+
+    def train(self, data):
+        self.train_step = self.train_step + 1
+        _, loss = self.sess.run([self.trainer, self.loss], feed_dict={
+            self.image_input=data.image_input,
+            self.standard_mat=data.standard_mat
+        })
+        if self.train_step % 10 == 1:
+            print("now learning step: %d, now loss: %f" %
+                  (self.train_step, loss))
+
+    def test(self, data):
+        loss, output = self.sess.run([self.loss, self.dnn_output], feed_dict={
+            self.image_input=data.image_input,
+            self.standard_mat=data.standard_mat
+        })
+        print("now loss: %f, output:" % loss, output)
+
+    def model_save(self):
+        pass

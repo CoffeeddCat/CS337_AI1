@@ -5,8 +5,8 @@ import tensorflow as tf
 import numpy as np
 import time
 
-def train(loader, config):
 
+def train(loader, config):
 
 
 if __name__ == "main":

@@ -1,5 +1,6 @@
 class Config:
-    def __init__ (self):
+
+    def __init__(self):
         self.input_shape = [128, 128, 128]
         self.dnn_shape = []
         self.filters = []
@@ -7,5 +8,5 @@ class Config:
         self.strides = []
         self.padding = "valid"
         self.buffer_size = 20
-        self.cnn_output_size = 
+        self.cnn_output_size =
         self.learning_rate =
