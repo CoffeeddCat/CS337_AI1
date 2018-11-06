@@ -33,14 +33,16 @@ class Loader:
         self.output = {}
         name_temp = "!!!"
         del(self.output_data[0])
-        matrix_temp = np.zeros((32, 7))
         for item in self.output_data:
             name = item[0]
             if name != name_temp:
-                self.output[name] = np.zeros((32, 7))
+                self.output[name+"_upside"] = np.zeros((16, 7))
+                self.output[name+"_downside"] = np.zeros((16, 7))
             for i in range(2, 9):
-                if int(item[1]) <= 32:
-                    self.output[name][int(item[1]) - 1][i - 2] = item[i]
+                if int(item[1]) <= 16:
+                    self.output[name+"_upside"][int(item[1]) - 1][i - 2] = item[i]
+                elif int(item[1]) <=32:
+                    self.output[name+"_downside"][int(item[1]) - 17][i - 2] = item[i]
             name_temp = name
         # print(self.output)
 
