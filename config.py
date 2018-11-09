@@ -10,3 +10,5 @@ class Config:
         self.buffer_size = 20
         self.cnn_output_size =
         self.learning_rate =
+        self.train_episodes = 2000
+        self.train_buffer_size = 10
