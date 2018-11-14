@@ -9,7 +9,7 @@ class Network:
         self.train_step = 0
         self.sess = tf.Session()
         self.initialize_network()
-
+        self.sess.run(tf.initialize_all_variables())
     def initialize_network(self):
         self.image_input = tf.placeholder(
             tf.float32, shape=[None] + self.config.input_shape, name="image_input")
@@ -53,6 +53,8 @@ class Network:
 
     def train(self, input_upside_buffer, input_downside_buffer, output_upside_buffer, output_downside_buffer):
         self.train_step = self.train_step + 1
+        print(type(input_upside_buffer))
+        print(type(output_upside_buffer))
         _, loss = self.sess.run([self.trainer, self.loss], feed_dict={
             self.image_input: input_upside_buffer,
             self.standard_mat: output_upside_buffer
