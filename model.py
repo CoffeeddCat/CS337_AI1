@@ -47,7 +47,7 @@ class Network:
             self.trainer = tf.train.AdamOptimizer(
                 self.config.learning_rate).minimize(self.loss)
 
-    def train(self, data):
+    def train(self, input_upside_buffer, input_downside_buffer, output_upside_buffer, output_downside_buffer):
         self.train_step = self.train_step + 1
         _, loss = self.sess.run([self.trainer, self.loss], feed_dict={
             self.image_input=data.image_input,

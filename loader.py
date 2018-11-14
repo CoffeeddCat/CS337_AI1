@@ -72,8 +72,8 @@ class Loader:
         input_upside_buffer = []
         input_downside_buffer = []
         output_upside_buffer = []
-        output_downside_buffer
-        name_buffer = self.name_array[np.random.choice(num, seld.pool_size)]
+        output_downside_buffer = []
+        name_buffer = self.name_array[np.random.choice(num, self.pool_size)]
         for name in name_buffer:
             input_upside_buffer.append(self.data[name + "_upside"])
             input_downside_buffer.append(self.data[name + "_downside"])
@@ -89,6 +89,7 @@ class Loader:
 loader = Loader(128, 1)
 loader.read_data_file()
 loader.initialize_output()
+loader.sample()
 # loader.initialize_output()
 # print(loader.output["leiyang"])
 # loader.read_data_file()
