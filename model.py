@@ -14,6 +14,7 @@ class Network:
         self.image_input = tf.placeholder(
             tf.float32, shape=[None] + self.config.input_shape, name="image_input")
         out = self.image_input
+        print(out)
         with tf.variable_scope("cnn_part"):
             for filters, kernel_size, strides in zip(self.config.filters, self.config.kernel_size, self.config.strides):
                 layer = tf.layers.conv3d(
@@ -21,8 +22,10 @@ class Network:
                     filters=filters,
                     kernel_size=kernel_size,
                     strides=strides,
-                    activation=tf.nn.relu
+                    activation=tf.nn.relu,
+                    padding=self.config.padding
                 )
+                print(layer)
                 out = layer
 
         self.cnn_output = tf.layers.flatten(out)
@@ -38,6 +41,7 @@ class Network:
                 out = layer
 
         self.dnn_output = out
+        print(self.dnn_output)
 
         self.standard_mat = tf.placeholder(
             tf.float32, shape=[None, 16 * 7], name="standard_mat")
