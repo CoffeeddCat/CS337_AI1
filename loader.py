@@ -64,21 +64,24 @@ class Loader:
                 elif int(item[1]) <= 32:
                     self.output[
                         name + "_downside"][int(item[1]) - 17][i - 2] = item[i]
-            print(self.output[name + "_upside"])
+            # print(self.output[name + "_upside"])
             name_temp = name
         # print(self.output)
 
-    def sample(self):
+    def sample(self, num):
         input_upside_buffer = []
         input_downside_buffer = []
         output_upside_buffer = []
         output_downside_buffer = []
-        name_buffer = self.name_array[np.random.choice(num, self.pool_size)]
+        name_buffer = []
+        for i in range(num):
+          index = np.random.randint(0, self.pool_size-1)
+          name_buffer.append(self.name_array[index])
         for name in name_buffer:
             input_upside_buffer.append(self.data[name + "_upside"])
             input_downside_buffer.append(self.data[name + "_downside"])
             output_upside_buffer.append(self.output[name + "_upside"])
-            output.output_downside_buffer.append(
+            output_downside_buffer.append(
                 self.output[name + "_downside"])
         return input_upside_buffer, input_downside_buffer, output_upside_buffer, output_downside_buffer
 
@@ -86,10 +89,10 @@ class Loader:
         return self.data[index]
 
 # For test.
-loader = Loader(128, 1)
-loader.read_data_file()
-loader.initialize_output()
-loader.sample()
+# loader = Loader(128, 1)
+# loader.read_data_file()
+# loader.initialize_output()
+# print(loader.sample(2))
 # loader.initialize_output()
 # print(loader.output["leiyang"])
 # loader.read_data_file()

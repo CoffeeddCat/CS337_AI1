@@ -50,8 +50,8 @@ class Network:
     def train(self, input_upside_buffer, input_downside_buffer, output_upside_buffer, output_downside_buffer):
         self.train_step = self.train_step + 1
         _, loss = self.sess.run([self.trainer, self.loss], feed_dict={
-            self.image_input=data.image_input,
-            self.standard_mat=data.standard_mat
+            self.image_input: input_upside_buffer,
+            self.standard_mat: output_upside_buffer
         })
         if self.train_step % 10 == 1:
             print("now learning step: %d, now loss: %f" %
@@ -59,8 +59,8 @@ class Network:
 
     def test(self, data):
         loss, output = self.sess.run([self.loss, self.dnn_output], feed_dict={
-            self.image_input=data.image_input,
-            self.standard_mat=data.standard_mat
+            self.image_input: data.image_input,
+            self.standard_mat: data.standard_mat
         })
         print("now loss: %f, output:" % loss, output)
 

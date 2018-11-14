@@ -4,7 +4,7 @@ class Config:
         self.input_shape = [128, 128, 128]
         self.dnn_shape = [128, 32, 16]
         self.filters = [16, 32, 32, 256]
-        self.kernel_sizes = [4, 8, 4, 8]
+        self.kernel_size = [4, 8, 4, 8]
         self.strides = [2, 4, 2, 8]
         self.padding = "valid"
         self.buffer_size = 20
