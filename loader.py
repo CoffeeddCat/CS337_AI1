@@ -64,6 +64,8 @@ class Loader:
                 elif int(item[1]) <= 32:
                     self.output[
                         name + "_downside"][int(item[1]) - 17][i - 2] = item[i]
+            np.reshape(self.output[name + "_upside"], 16 * 7)
+            np.reshape(self.output[name + "_downside"], 16 * 7)
             name_temp = name
         # print(self.output)
 
@@ -87,6 +89,7 @@ class Loader:
 # For test.
 loader = Loader(128, 1)
 loader.read_data_file()
+loader.initialize_output()
 # loader.initialize_output()
 # print(loader.output["leiyang"])
 # loader.read_data_file()

@@ -40,7 +40,7 @@ class Network:
         self.dnn_output = out
 
         self.standard_mat = tf.placeholder(
-            tf.float32, shape=[None, 16, 7], name="standard_mat")
+            tf.float32, shape=[None, 16 * 7], name="standard_mat")
         with tf.variable_scope("train_part"):
             self.loss = tf.reduce_mean(
                 (tf.square(self.dnn_output - self.standard_mat)))
