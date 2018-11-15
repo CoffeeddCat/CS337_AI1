@@ -68,7 +68,7 @@ class Loader:
             name_temp = name
         # print(self.output)
 
-    #def _format(self, item):
+    # def _format(self, item):
     #    item = np.reshape(item, (-1, 128, 128, 128))
     #    print(type(item))
     #    return item
@@ -81,15 +81,15 @@ class Loader:
         name_buffer = []
         # print(self.pool_size)
         for i in range(num):
-          index = np.random.randint(0, self.pool_size-1)
-          name_buffer.append(self.name_array[index])
+            index = np.random.randint(0, self.pool_size - 1)
+            name_buffer.append(self.name_array[index])
         for name in name_buffer:
             input_upside_buffer.append(self.data[name + "_upside"])
             input_downside_buffer.append(self.data[name + "_downside"])
             output_upside_buffer.append(self.output[name + "_upside"])
             output_downside_buffer.append(
                 self.output[name + "_downside"])
-        return np.reshape(input_upside_buffer, (-1, 128, 128, 128, 1)), np.reshape(input_downside_buffer, (-1, 128, 128, 128, 1)), np.reshape(output_upside_buffer, (-1, 16*7)), np.reshape(output_downside_buffer, (-1, 16*7))
+        return np.reshape(input_upside_buffer, (-1, 128, 128, 128, 1)), np.reshape(input_downside_buffer, (-1, 128, 128, 128, 1)), np.reshape(output_upside_buffer, (-1, 16 * 7)), np.reshape(output_downside_buffer, (-1, 16 * 7))
 
     def get_data(self, index):
         return self.data[index]
