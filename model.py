@@ -7,7 +7,9 @@ class Network:
     def __init__(self, config):
         self.config = config
         self.train_step = 0
-        self.sess = tf.Session()
+        conf = tf.ConfigProto(allow_soft_placement=True, log_device_placement=False)
+        conf.gpu_options.allow_growth = True
+        self.sess = tf.Session(config=conf)
         self.initialize_network()
         self.sess.run(tf.initialize_all_variables())
     def initialize_network(self):
@@ -53,8 +55,8 @@ class Network:
 
     def train(self, input_upside_buffer, input_downside_buffer, output_upside_buffer, output_downside_buffer):
         self.train_step = self.train_step + 1
-        print(type(input_upside_buffer))
-        print(type(output_upside_buffer))
+        # print(type(input_upside_buffer))
+        # print(type(output_upside_buffer))
         _, loss = self.sess.run([self.trainer, self.loss], feed_dict={
             self.image_input: input_upside_buffer,
             self.standard_mat: output_upside_buffer

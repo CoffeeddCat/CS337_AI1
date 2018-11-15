@@ -8,6 +8,6 @@ class Config:
         self.strides = [2, 4, 2, 8]
         self.padding = "SAME"
         self.buffer_size = 20
-        self.learning_rate = 5e-3
-        self.train_episodes = 2000
-        self.train_buffer_size = 10
+        self.learning_rate = 5e-4
+        self.train_episodes = 200000
+        self.train_buffer_size = 30
