@@ -13,6 +13,10 @@ def train(loader, config):
         network.train(input_upside_buffer, input_downside_buffer,
                       output_upside_buffer, output_downside_buffer)
 
+    print("train done.")
+
+def test(loader, config):
+
 if __name__ == "__main__":
     config = Config()
     loader = Loader(128, 1000)
@@ -20,3 +24,4 @@ if __name__ == "__main__":
     loader.initialize_output()
     network = Network(config)
     train(loader, config)
+    test(loader, config)

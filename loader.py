@@ -2,7 +2,8 @@
 import csv
 import numpy as np
 import os
-
+import config
+import random
 
 class Loader:
 
@@ -16,6 +17,7 @@ class Loader:
         # print(self.output_data)
         # self.output_data = pd.read_csv("parsed_data.csv")
         self.folder_list = os.listdir(r'./out')
+        self.training_set_percent = config.training_set_percent
 
     def read_data_file(self):
         # for test
@@ -83,16 +85,40 @@ class Loader:
         for i in range(num):
             index = np.random.randint(0, self.pool_size - 1)
             name_buffer.append(self.name_array[index])
+
         for name in name_buffer:
             input_upside_buffer.append(self.data[name + "_upside"])
             input_downside_buffer.append(self.data[name + "_downside"])
             output_upside_buffer.append(self.output[name + "_upside"])
             output_downside_buffer.append(
                 self.output[name + "_downside"])
+
         return np.reshape(input_upside_buffer, (-1, 128, 128, 128, 1)), np.reshape(input_downside_buffer, (-1, 128, 128, 128, 1)), np.reshape(output_upside_buffer, (-1, 16 * 7)), np.reshape(output_downside_buffer, (-1, 16 * 7))
 
     def get_data(self, index):
         return self.data[index]
+
+    def sets_apart(self):
+        take_out_num = self.pool_size - int(self.pool_size * self.training_set_percent)
+        random.shuffle(self.name_array)
+
+        input_upside_buffer = []
+        input_downside_buffer = []
+        output_upside_buffer = []
+        output_downside_buffer = []
+
+        for index in range(take_out_num):
+          name = self.name_array.pop()
+          input_upside_buffer.append(self.data.pop(name + "_upside"))
+          input_downside_buffer.append(self.data.pop(name + "_downside"))
+          output_upside_buffer.append(self.output.pop(name + "_upside"))
+          output_downside_buffer.append(self.output.pop(name + "_downside"))
+
+        self.test_set = {}
+        self.test_set["input_upside_buffer"] = input_upside_buffer
+        self.test_set["input_downside_buffer"] = input_downside_buffer
+        self.test_set["output_upside_buffer"] = output_upside_buffer
+        self.test_set["output_downside_buffer"] = output_downside_buffer
 
 # For test.
 # loader = Loader(128, 1)
