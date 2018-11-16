@@ -5,6 +5,7 @@ import os
 import config
 import random
 
+
 class Loader:
 
     def __init__(self, voxes, max_size):
@@ -99,7 +100,8 @@ class Loader:
         return self.data[index]
 
     def sets_apart(self):
-        take_out_num = self.pool_size - int(self.pool_size * self.training_set_percent)
+        take_out_num = self.pool_size - \
+            int(self.pool_size * self.training_set_percent)
         random.shuffle(self.name_array)
 
         input_upside_buffer = []
@@ -108,11 +110,11 @@ class Loader:
         output_downside_buffer = []
 
         for index in range(take_out_num):
-          name = self.name_array.pop()
-          input_upside_buffer.append(self.data.pop(name + "_upside"))
-          input_downside_buffer.append(self.data.pop(name + "_downside"))
-          output_upside_buffer.append(self.output.pop(name + "_upside"))
-          output_downside_buffer.append(self.output.pop(name + "_downside"))
+            name = self.name_array.pop()
+            input_upside_buffer.append(self.data.pop(name + "_upside"))
+            input_downside_buffer.append(self.data.pop(name + "_downside"))
+            output_upside_buffer.append(self.output.pop(name + "_upside"))
+            output_downside_buffer.append(self.output.pop(name + "_downside"))
 
         self.test_set = {}
         self.test_set["input_upside_buffer"] = input_upside_buffer
