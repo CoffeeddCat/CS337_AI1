@@ -2,13 +2,12 @@
 import csv
 import numpy as np
 import os
-import config
 import random
 
 
 class Loader:
 
-    def __init__(self, voxes, max_size):
+    def __init__(self, voxes, max_size, training_set_percent):
         self.voxes = voxes
         self.max_size = max_size
         self.data = {}
@@ -18,7 +17,7 @@ class Loader:
         # print(self.output_data)
         # self.output_data = pd.read_csv("parsed_data.csv")
         self.folder_list = os.listdir(r'./out')
-        self.training_set_percent = config.training_set_percent
+        self.training_set_percent = training_set_percent
 
     def read_data_file(self):
         # for test
@@ -102,6 +101,8 @@ class Loader:
     def sets_apart(self):
         take_out_num = self.pool_size - \
             int(self.pool_size * self.training_set_percent)
+        print("test set num:", take_out_num)
+        self.pool_size = self.pool_size - take_out_num
         random.shuffle(self.name_array)
 
         input_upside_buffer = []

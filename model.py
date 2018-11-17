@@ -69,10 +69,10 @@ class Network:
 
     def test(self, data):
         loss, output = self.sess.run([self.loss, self.dnn_output], feed_dict={
-            self.image_input: data.image_input,
-            self.standard_mat: data.standard_mat
+            self.image_input: data["image_input"],
+            self.standard_mat: data["standard_mat"]
         })
-        print("now loss: %f, output:" % loss, output)
+        print("loss on test set: %f, output:" % loss, output)
 
     def model_save(self):
         pass

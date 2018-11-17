@@ -8,7 +8,7 @@ class Config:
         self.strides = [2, 4, 2, 8]
         self.padding = "SAME"
         self.buffer_size = 20
-        self.learning_rate = 5e-6
-        self.train_episodes = 200000
+        self.learning_rate = 5e-4
+        self.train_episodes = 50000
         self.train_buffer_size = 20
         self.training_set_percent = 0.8

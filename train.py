@@ -17,12 +17,17 @@ def train(loader, config):
 
 
 def test(loader, config):
+    data = {}
+    data["image_input"] = np.reshape(loader.test_set["input_upside_buffer"], (-1, 128, 128, 128, 1))
+    data["standard_mat"] = np.reshape(loader.test_set["output_upside_buffer"], (-1, 16 * 7))
+    network.test(data)
 
 if __name__ == "__main__":
     config = Config()
-    loader = Loader(128, 1000)
+    loader = Loader(128, 1000, config.training_set_percent)
     loader.read_data_file()
     loader.initialize_output()
+    loader.sets_apart()
     network = Network(config)
     train(loader, config)
     test(loader, config)
