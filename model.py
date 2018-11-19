@@ -12,7 +12,11 @@ class Network:
         conf.gpu_options.allow_growth = True
         self.sess = tf.Session(config=conf)
         self.initialize_network()
-        self.sess.run(tf.initialize_all_variables())
+        if self.config.model_load == True:
+            self.model_load()
+        else:
+            self.sess.run(tf.initialize_all_variables())
+        self.saver = tf.train.Saver(max_to_keep=3)
 
     def initialize_network(self):
         self.image_input = tf.placeholder(
@@ -67,6 +71,9 @@ class Network:
             print("now learning step: %d, now loss: %f" %
                   (self.train_step, loss))
 
+        if self.train_step % self.config.every_steps_save == 1:
+            self.model_save()
+
     def test(self, data):
         loss, output = self.sess.run([self.loss, self.dnn_output], feed_dict={
             self.image_input: data["image_input"],
@@ -74,5 +81,13 @@ class Network:
         })
         print("loss on test set: %f, output:" % loss, output)
 
-    def model_save(self):
-        pass
+    def model_save(self, name=None):
+        print("now training step %d...model saving..." % (self.train_step))
+        if name == None:
+            saver.save(self.sess, "model/training_step",
+                       global_step=self.train_step)
+        else:
+            saver.save(self.sess, name)
+
+    def model_load(self):
+        self.saver.restore(self.sess, self.config.model_load_path)
