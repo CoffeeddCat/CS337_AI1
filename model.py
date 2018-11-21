@@ -80,7 +80,8 @@ class Network:
             self.image_input: data["image_input"],
             self.standard_mat: data["standard_mat"]
         })
-        print("loss on test set: %f, output:" % loss, output)
+        print("loss on test set:", loss)
+        print("output:", output)
 
     def model_save(self, name=None):
         print("now training step %d...model saving..." % (self.train_step))

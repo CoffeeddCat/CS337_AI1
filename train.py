@@ -25,7 +25,7 @@ def test(loader, config):
     network.test(data)
 
 if __name__ == "__main__":
-    np.set_printoptions(threshold='nan')
+    np.set_printoptions(threshold=np.nan)
     config = Config()
     loader = Loader(128, 1000, config.training_set_percent)
     loader.read_data_file()
