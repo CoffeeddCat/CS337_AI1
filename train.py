@@ -32,5 +32,7 @@ if __name__ == "__main__":
     loader.initialize_output()
     loader.sets_apart()
     network = Network(config)
-    train(loader, config)
-    test(loader, config)
+    if config.train:
+      train(loader, config)
+    if config.test:
+      test(loader, config)
