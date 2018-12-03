@@ -10,19 +10,28 @@ def train(loader, config):
     for train_round in range(config.train_episodes):
         input_upside_buffer, input_downside_buffer, output_upside_buffer, output_downside_buffer = loader.sample(
             config.train_buffer_size)
-        network.train(input_upside_buffer, input_downside_buffer,
-                      output_upside_buffer, output_downside_buffer)
+        network_upside.train(input_upside_buffer,output_upside_buffer)
+        network_downside.train(input_downside_buffer, output_downside_buffer)
 
     print("train done.")
 
 
 def test(loader, config):
     data = {}
+
     data["image_input"] = np.reshape(
         loader.test_set["input_upside_buffer"], (-1, 128, 128, 128, 1))
     data["standard_mat"] = np.reshape(
         loader.test_set["output_upside_buffer"], (-1, 16 * 7))
-    network.test(data)
+    print("The loss of upside:")
+    network_upside.test(data)
+
+    data["image_input"] = np.reshape(
+        loader.test_set["input_downside_buffer"], (-1, 128, 128, 128, 1))
+    data["standard_mat"] = np.reshape(
+        loader.test_set["output_downside_buffer"], (-1, 16 * 7))
+    print("The loss of downside:")
+    network_downside.test(data)
 
 if __name__ == "__main__":
     np.set_printoptions(threshold=np.nan)
@@ -31,8 +40,11 @@ if __name__ == "__main__":
     loader.read_data_file()
     loader.initialize_output()
     loader.sets_apart()
-    network = Network(config)
+
+    network_upside = Network(config, "_upside")
+    network_downside = Network(config, "_downside")
     if config.train:
       train(loader, config)
     if config.test:
       test(loader, config)
+
