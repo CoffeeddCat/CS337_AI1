@@ -29,6 +29,21 @@ class Outer:
         self.initialize()
         name_array, input_upside, input_downside = self.loader.give_all()
         upside_result = self.network_upside.return_mat(input_upside)
-        downside_result =self.network_downside.return_mat(input_downside)
+        downside_result = self.network_downside.return_mat(input_downside)
         print(upside_result)
         print(downside_result)
+        now = 1
+        for name_index in range(len(name_array)):
+            for i in range(1, 33):
+                self.sheet.cell(row=now + i, column=1,
+                                value=name_array[name_index])
+                self.sheet.cell(row=now + i, column=2, value=str(i))
+                for j in range(3, 10):
+                    if i <= 16:
+                        self.sheet.cell(
+                            row=now + i, column=j, value=str(upside_result[name_index][(i - 1) * 7 + j - 3]))
+                    else:
+                        self.sheet.cell(
+                            row=now + i, column=j, value=str(downside_result[name_index][(i - 1) * 7 + j - 3]))
+            now = now + 32
+        self.file.save(filename=file_name)
