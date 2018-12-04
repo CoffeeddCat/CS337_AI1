@@ -1,6 +1,6 @@
 import numpy as np
-import xlrd
-import xlwt
+# import xlrd
+# import xlwt
 import openpyxl
 
 
@@ -12,7 +12,7 @@ class Outer:
         self.network_upside = network_upside
         self.network_downside = network_downside
 
-    def initialize(file_name):
+    def initialize(self):
         self.file = openpyxl.Workbook()
         self.sheet = self.file.active
         self.sheet.cell(row=1, column=1, value="Name")
