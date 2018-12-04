@@ -23,5 +23,5 @@ class Config:
         self.model_load = False
 
         # about training and test
-        self.train = False
+        self.train = True
         self.test = True
