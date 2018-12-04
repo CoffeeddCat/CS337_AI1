@@ -20,11 +20,11 @@ class Config:
         # about model saving
         self.every_steps_save = 2000
         self.model_load_path = tf.train.latest_checkpoint("model/")
-        self.model_load = True
+        self.model_load = False
 
         # about training and test
-        self.train = False
-        self.test = False
+        self.train =True
+        self.test = True
 
         # about output
         self.output = True
