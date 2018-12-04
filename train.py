@@ -1,6 +1,7 @@
 from loader import Loader
 from config import *
 from model import Network
+from outer import Outer
 import tensorflow as tf
 import numpy as np
 import time
@@ -10,7 +11,7 @@ def train(loader, config):
     for train_round in range(config.train_episodes):
         input_upside_buffer, input_downside_buffer, output_upside_buffer, output_downside_buffer = loader.sample(
             config.train_buffer_size)
-        network_upside.train(input_upside_buffer,output_upside_buffer)
+        network_upside.train(input_upside_buffer, output_upside_buffer)
         network_downside.train(input_downside_buffer, output_downside_buffer)
 
     print("train done.")
@@ -44,7 +45,11 @@ if __name__ == "__main__":
     network_upside = Network(config, "_upside")
     network_downside = Network(config, "_downside")
     if config.train:
-      train(loader, config)
+        train(loader, config)
     if config.test:
-      test(loader, config)
+        test(loader, config)
 
+    output = Outer(config, loader, network_upside, network_downside)
+
+    if config.output:
+        output.out("result.csv")

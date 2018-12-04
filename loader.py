@@ -3,6 +3,7 @@ import csv
 import numpy as np
 import os
 import random
+import copy
 
 
 class Loader:
@@ -49,6 +50,9 @@ class Loader:
             file_downside.close()
             print(folder_name + " done.")
         self.pool_size = len(self.name_array)
+
+        self.name_array_copy = copy.deepcopy(self.name_array)
+        self.data_copy = copy.deepcopy(self.data)
 
     def initialize_output(self):
         self.output = {}
@@ -123,6 +127,14 @@ class Loader:
         self.test_set["output_upside_buffer"] = output_upside_buffer
         self.test_set["output_downside_buffer"] = output_downside_buffer
 
+    def give_all(self):
+        input_upside_buffer = []
+        input_downside_buffer = []
+        for name in self.name_array_copy:
+            input_upside_buffer.append(self.data_copy[name + "_upside"])
+            input_downside_buffer.append(self.data_copy[name + "_downside"])
+
+        return self.name_array_copy, np.reshape(input_upside_buffer, (-1, 128, 128, 128, 1)), np.reshape(input_downside_buffer, (-1, 128, 128, 128, 1))
 # For test.
 # loader = Loader(128, 1)
 # loader.read_data_file()

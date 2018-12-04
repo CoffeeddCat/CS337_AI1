@@ -84,6 +84,12 @@ class Network:
         print("loss on test set:", loss)
         print("output:", output)
 
+    def return_mat(self, data):
+        output = self.sess.run([self.dnn_output], feed_dict={
+            self.image_input: data["image_input"]
+        })
+        return output
+
     def model_save(self, name=None):
         print("now training step %d...model saving..." % (self.train_step))
         if name == None:
