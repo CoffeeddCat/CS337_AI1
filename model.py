@@ -86,7 +86,7 @@ class Network:
 
     def return_mat(self, data):
         output = self.sess.run([self.dnn_output], feed_dict={
-            self.image_input: data["image_input"]
+            self.image_input: data
         })
         return output
 
