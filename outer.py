@@ -44,6 +44,6 @@ class Outer:
                             row=now + i, column=j, value=str(upside_result[name_index][(i - 1) * 7 + j - 3]))
                     else:
                         self.sheet.cell(
-                            row=now + i, column=j, value=str(downside_result[name_index][(i - 1) * 7 + j - 3]))
+                            row=now + i, column=j, value=str(downside_result[name_index][(i - 17) * 7 + j - 3]))
             now = now + 32
         self.file.save(filename=file_name)
