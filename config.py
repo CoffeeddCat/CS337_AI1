@@ -12,7 +12,7 @@ class Config:
 
         # training params
         self.buffer_size = 20
-        self.learning_rate = 5e-4
+        self.learning_rate = 5e-8
         self.train_episodes = 50000
         self.train_buffer_size = 20
         self.training_set_percent = 0.8
