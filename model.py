@@ -43,10 +43,15 @@ class Network:
 
         with tf.variable_scope("dnn_part" + self.scope):
             for output_num in self.config.dnn_shape:
+                if output_num != 16*7:
+                  fn = tf.nn.relu
+                else:
+                  fn = None
+
                 layer = tf.layers.dense(
                     inputs=out,
                     units=output_num,
-                    activation=tf.nn.relu
+                    activation=fn
                 )
                 out = layer
 

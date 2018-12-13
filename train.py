@@ -52,4 +52,4 @@ if __name__ == "__main__":
     output = Outer(config, loader, network_upside, network_downside)
 
     if config.output:
-        output.out("tooth_result.csv")
+        output.out("tooth_result.xlsx")

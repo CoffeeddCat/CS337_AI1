@@ -12,7 +12,7 @@ class Config:
 
         # training params
         self.buffer_size = 20
-        self.learning_rate = 5e-4
+        self.learning_rate = 5e-8
         self.train_episodes = 50000
         self.train_buffer_size = 20
         self.training_set_percent = 0.8
@@ -20,11 +20,11 @@ class Config:
         # about model saving
         self.every_steps_save = 2000
         self.model_load_path = tf.train.latest_checkpoint("model/")
-        self.model_load = True
+        self.model_load = False
 
         # about training and test
-        self.train = False
-        self.test = False
+        self.train =True
+        self.test = True
 
         # about output
         self.output = True
