@@ -13,8 +13,12 @@ class Outer:
         self.network_downside = network_downside
 
     def initialize(self):
+
+        # set up the new sheet
         self.file = openpyxl.Workbook()
         self.sheet = self.file.active
+
+        # initialize the sheet head
         self.sheet.cell(row=1, column=1, value="Name")
         self.sheet.cell(row=1, column=2, value="Tooth_id")
         self.sheet.cell(row=1, column=3, value="Translation_X")
@@ -34,8 +38,11 @@ class Outer:
         # print(downside_result)
         now = 1
         for name_index in range(len(name_array)):
+            # For test
             # print("!!!!!!!!!!",upside_result[0][name_index])
             # print(downside_result[0][name_index],"!!!!!!!!!!!!!")
+
+            # write in the content
             for i in range(1, 33):
                 self.sheet.cell(row=now + i, column=1,
                                 value=name_array[name_index])
@@ -48,4 +55,6 @@ class Outer:
                         self.sheet.cell(
                             row=now + i, column=j, value=str(downside_result[0][name_index][(i - 17) * 7 + j - 3]))
             now = now + 32
+
+        # save the file
         self.file.save(filename=file_name)
