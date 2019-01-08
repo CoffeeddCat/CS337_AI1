@@ -35,19 +35,12 @@ class Loader:
         # read every model file in the folder
         for folder_name, order in zip(self.folder_list, range(len(self.folder_list))):
             self.name_array.append(folder_name)
-<<<<<<< HEAD
             file_upside = open('./clincheck3/' + folder_name + '/' + folder_name +
                                "_up.stlout.txt", 'r', encoding="UTF-8")
             file_downside = open('./clincheck3/' + folder_name + '/' + folder_name +
                                  "_down.stlout.txt", 'r', encoding="UTF-8")
-=======
-            file_upside = open('./out/' + folder_name + '/' + folder_name +
-                               "_initial_up.stlout.txt", 'r', encoding="UTF-8")
-            file_downside = open('./out/' + folder_name + '/' + folder_name +
-                                 "_initial_down.stlout.txt", 'r', encoding="UTF-8")
 
             # initialize the data with all 0
->>>>>>> 9525bb2cc27dece756295c3ea57aa5feea8a5040
             self.data[
                 folder_name + "_upside"] = np.zeros((self.voxes, self.voxes, self.voxes))
             self.data[
@@ -90,13 +83,8 @@ class Loader:
             if name != name_temp:
                 self.output[name + "_upside"] = np.zeros((16, 7))
                 self.output[name + "_downside"] = np.zeros((16, 7))
-<<<<<<< HEAD
-            # for i in range(2, 9):
-            for i in range(2, 8):
-=======
             # read the excel file to fill in the standard matrix
             for i in range(2, 9):
->>>>>>> 9525bb2cc27dece756295c3ea57aa5feea8a5040
                 if int(item[1]) <= 16:
                     self.output[
                         name + "_upside"][int(item[1]) - 1][i - 2] = item[i]
