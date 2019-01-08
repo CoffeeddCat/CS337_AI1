@@ -23,7 +23,7 @@ class Loader:
         # self.output_data = pd.read_csv("parsed_data.csv")
 
         # get the filename list
-        self.folder_list = os.listdir(r'./out')
+        self.folder_list = os.listdir(r'./clincheck3')
 
         # training set percent.
         self.training_set_percent = training_set_percent
@@ -84,7 +84,7 @@ class Loader:
                 self.output[name + "_upside"] = np.zeros((16, 7))
                 self.output[name + "_downside"] = np.zeros((16, 7))
             # read the excel file to fill in the standard matrix
-            for i in range(2, 9):
+            for i in range(2, 8):
                 if int(item[1]) <= 16:
                     self.output[
                         name + "_upside"][int(item[1]) - 1][i - 2] = item[i]
