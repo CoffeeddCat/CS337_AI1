@@ -35,7 +35,10 @@ def test(loader, config):
     network_downside.test(data)
 
 if __name__ == "__main__":
+    # np config
     np.set_printoptions(threshold=np.nan)
+
+    # initialize the setting and model
     config = Config()
     loader = Loader(128, 1000, config.training_set_percent)
     loader.read_data_file()
@@ -43,13 +46,17 @@ if __name__ == "__main__":
     print(loader.output)
     loader.sets_apart()
 
+    # about the model
     network_upside = Network(config, "_upside")
     network_downside = Network(config, "_downside")
+
+    # train & test
     if config.train:
         train(loader, config)
     if config.test:
         test(loader, config)
 
+    # call the outer to expory a excel file
     output = Outer(config, loader, network_upside, network_downside)
 
     if config.output:
