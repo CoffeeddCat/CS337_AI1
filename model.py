@@ -104,4 +104,5 @@ class Network:
             self.saver.save(self.sess, name)
 
     def model_load(self):
-        self.saver.restore(self.sess, self.config.model_load_path)
+        self.saver.restore(self.sess, "model/training_step" + self.scope + "_26001")
+        print(self.scope, "load over.")

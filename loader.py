@@ -14,10 +14,10 @@ class Loader:
         self.data = {}
         self.name_array = []
         self.pool_size = 0
-        self.output_data = list(csv.reader(open("parsed_data.csv")))
+        self.output_data = list(csv.reader(open("parsedata.csv")))
         # print(self.output_data)
         # self.output_data = pd.read_csv("parsed_data.csv")
-        self.folder_list = os.listdir(r'./out')
+        self.folder_list = os.listdir(r'./clincheck3')
         self.training_set_percent = training_set_percent
 
     def read_data_file(self):
@@ -25,10 +25,10 @@ class Loader:
         #self.file_list = ["test.vox"]
         for folder_name, order in zip(self.folder_list, range(len(self.folder_list))):
             self.name_array.append(folder_name)
-            file_upside = open('./out/' + folder_name + '/' + folder_name +
-                               "_initial_up.stlout.txt", 'r', encoding="UTF-8")
-            file_downside = open('./out/' + folder_name + '/' + folder_name +
-                                 "_initial_down.stlout.txt", 'r', encoding="UTF-8")
+            file_upside = open('./clincheck3/' + folder_name + '/' + folder_name +
+                               "_up.stlout.txt", 'r', encoding="UTF-8")
+            file_downside = open('./clincheck3/' + folder_name + '/' + folder_name +
+                                 "_down.stlout.txt", 'r', encoding="UTF-8")
             self.data[
                 folder_name + "_upside"] = np.zeros((self.voxes, self.voxes, self.voxes))
             self.data[
@@ -63,7 +63,8 @@ class Loader:
             if name != name_temp:
                 self.output[name + "_upside"] = np.zeros((16, 7))
                 self.output[name + "_downside"] = np.zeros((16, 7))
-            for i in range(2, 9):
+            # for i in range(2, 9):
+            for i in range(2, 8):
                 if int(item[1]) <= 16:
                     self.output[
                         name + "_upside"][int(item[1]) - 1][i - 2] = item[i]

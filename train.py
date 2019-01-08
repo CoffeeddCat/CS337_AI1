@@ -40,6 +40,7 @@ if __name__ == "__main__":
     loader = Loader(128, 1000, config.training_set_percent)
     loader.read_data_file()
     loader.initialize_output()
+    print(loader.output)
     loader.sets_apart()
 
     network_upside = Network(config, "_upside")
@@ -52,4 +53,4 @@ if __name__ == "__main__":
     output = Outer(config, loader, network_upside, network_downside)
 
     if config.output:
-        output.out("tooth_result.xlsx")
+        output.out("tooth_result_clin3.xlsx")
