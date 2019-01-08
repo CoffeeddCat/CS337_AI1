@@ -18,7 +18,7 @@ class Loader:
         self.pool_size = 0
 
         # read the file
-        self.output_data = list(csv.reader(open("parsed_data.csv")))
+        self.output_data = list(csv.reader(open("parsedata.csv")))
         # print(self.output_data)
         # self.output_data = pd.read_csv("parsed_data.csv")
 
